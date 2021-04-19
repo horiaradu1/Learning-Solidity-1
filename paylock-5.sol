@@ -24,12 +24,9 @@ contract paylock {
     
     function tick() external {
         require( variables.timeAdd == msg.sender, "Wrong account");
-        if (variables.clock < 4) {
-            variables.clock = variables.clock + 1;
-            emit Log("Tick");
-        } else {
-            emit Log("Clock is 4 or bigger. Did not increment the clock");
-        }
+        require( variables.clock < 4, "Clock is 4 or bigger. Did not increment the clock");
+        variables.clock = variables.clock + 1;
+        emit Log("Tick");
     }
 
     function signal() external {
